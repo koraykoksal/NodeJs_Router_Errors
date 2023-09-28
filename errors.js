@@ -57,7 +57,7 @@ app.get('/user/:id',(req,res)=>{
 
 //?* Error Handle hata yakalama için kodlamanın en sonuna yazılır.
 //? Error Handle 4 adet parametre alır.
-/* ------------------------------------------------------- */
+/* ------------------------------------------------------- *
 
 app.get('/user/:id', (req, res) => {
     const id = req.params.id ?? 0
@@ -92,5 +92,15 @@ const errorHandler = (err, req, res, next) => {
 app.use(errorHandler)
  
  /* ------------------------------------------------------- */
+
+ //? ASYN
+
+ const asynFunction = async()=>{
+    throw new Error('hata burada')
+ }
+
+ app.get('/asyn',async (req,res,next)=>{
+    await asynFunction().catch(next)
+ })
 
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
